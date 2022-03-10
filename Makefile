@@ -6,37 +6,66 @@
 #    By: kblok <kblok@student.codam.nl>               +#+                      #
 #                                                    +#+                       #
 #    Created: 2021/11/16 20:46:21 by kblok         #+#    #+#                  #
-#    Updated: 2022/03/10 13:05:33 by kblok         ########   odam.nl          #
+#    Updated: 2022/03/10 15:00:05 by kblok         ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
-include source.mk
-
+#==============================================================================: Filename
 NAME	= 	libft.a
-CC		= 	gcc
-CFLAGS	= 	-Wall -Werror -Wextra -c
-AR		=	ar rcs
-MKDIR	= mkdir -p obj
+
+#==============================================================================: Source to object conversion 
 OBJ		= 	$(SRCS:src/%.c=obj/%.o)
 
-all: dirs $(NAME)
+#==============================================================================: Compile variable
+CC		= 	gcc
+CFLAGS	= 	-Wall -Werror -Wextra -c
+RM		=	rm -rf
+AR		=	ar rcs
+MKDIR	= 	mkdir -p obj
 
+#==============================================================================: Source files 
+include source.mk
+
+#==============================================================================: Color codes
+GREEN		= \033[1;32m
+RED			= \033[1;31m
+BLUE		= \033[1;34m
+MAGENTA		= \033[1;35m
+RESET		= \033[0m
+
+all: dirs message $(NAME)
+
+run:
+	@./$(NAME) $(ARGS)
+
+#==============================================================================: Compile project
 $(NAME): $(OBJ)
 	@$(AR) $(NAME) $(OBJ)
-
-obj/%.o: src/%.c
-	@$(CC) $(CFLAGS) -o $@ $< -I .
+	@echo "$(GREEN)✅Done compiling $(NAME)$(RESET)"
 
 dirs:
 	@$(MKDIR)
 
+message:
+	@echo "$(BLUE)🔨Creating object folder$(RESET)"
+	@echo "$(GREEN)🔨Compiling: $(MAGENTA)$(NAME)...$(RESET)"
+
+obj/%.o: src/%.c
+	@$(CC) $(CFLAGS) -o $@ $< -I .
+ifeq ($(DB),1)
+	@printf "$(GREEN)\r🔨Compiling: $(MAGENTA)$(notdir $<)$(GREEN)\r\e[35C[OK]\n$(RESET)"
+endif
+
+#==============================================================================: Remove object files and folder
 clean:
-	@rm -rf obj/
+	@$(RM) obj/
+	@echo "$(RED)🧹Cleaned object folders!$(RESET)"
 
+#==============================================================================: Remove object files, folder and lib files/executables
 fclean: clean
-	@rm -rf $(NAME) *.out
-
+	@$(RM) $(NAME) *.out
+	@echo "$(RED)🧹Cleaned $(NAME)!$(RESET)"
 
 re: fclean all
 
-.PHONY: all clean fclean re dirs run
+.PHONY: all clean fclean re dirs message
