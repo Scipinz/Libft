@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_strjoin.c                                       :+:    :+:            */
+/*   ft_strappend.c                                     :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: kblok <kblok@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/16 19:38:49 by kblok         #+#    #+#                 */
-/*   Updated: 2022/04/14 12:44:56 by kblok         ########   odam.nl         */
+/*   Updated: 2022/04/14 13:17:37 by kblok         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strjoin(char const *str1, char const *str2)
+char	*ft_strappend(char const *str1, char const *str2)
 {
 	char	*str3;
 	int		idx;
@@ -20,8 +20,8 @@ char	*ft_strjoin(char const *str1, char const *str2)
 
 	idx = 0;
 	idx2 = 0;
-	if (!str1 || !str2)
-		return (0);
+	if (!str1)
+		return (ft_strdup(str2));
 	str3 = malloc((ft_strlen(str1) + ft_strlen(str2) + 1) * sizeof(char));
 	if (!str3)
 		return (0);
@@ -37,5 +37,6 @@ char	*ft_strjoin(char const *str1, char const *str2)
 		idx2++;
 	}
 	str3[idx] = '\0';
+	free((char *)str1);
 	return (str3);
 }

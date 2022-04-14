@@ -6,7 +6,7 @@
 /*   By: kblok <kblok@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/17 14:32:19 by kblok         #+#    #+#                 */
-/*   Updated: 2022/03/09 16:19:31 by kblok         ########   odam.nl         */
+/*   Updated: 2022/04/14 15:12:06 by kblok         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,6 +134,15 @@ char	*ft_itoa(int num);
 // ------------------------------------------------------------------ //
 //
 //
+
+/**
+ * Allocates and returns a new str, which is the result of
+ * the concatenation of ’str1’ and ’str2’. Also frees str1 so it can be used over and over.
+ * @param str The prefix str.
+ * @param str2 The suffix str.
+ * @returns The str result of the concatenation of the two str.
+ */
+char	*ft_strappend(char const *str1, char const *str2);
 
 /**
  * The strcmp functions return an int less than, equal to, or greater

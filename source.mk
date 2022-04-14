@@ -49,6 +49,7 @@ SRCS	= 	ft_atoi.c \
 			ft_putnbr.c \
 			ft_putnbr_base.c \
 			ft_putstr.c \
-			ft_printf.c
+			ft_printf.c \
+			ft_strappend.c
 
 SRCS := $(SRCS:%=src/%)
